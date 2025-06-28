@@ -90,8 +90,8 @@ namespace patches
 			add_mouse_bind(WM_LBUTTONDOWN, VK_RETURN, 0);
 			add_mouse_bind(WM_LBUTTONUP, VK_RETURN, 1);
 
-			add_mouse_bind(WM_RBUTTONDOWN, 'X', 0);
-			add_mouse_bind(WM_RBUTTONUP, 'X', 1);
+			add_mouse_bind(WM_RBUTTONDOWN, VK_SHIFT, 0);
+			add_mouse_bind(WM_RBUTTONUP, VK_SHIFT, 1);
 
 			utils::hook::nop(0x1401AE4A2, 6);
 			utils::hook::far_call<BASE_ADDRESS>(0x1401AE4A2, get_async_get_state);
