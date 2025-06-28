@@ -30,16 +30,6 @@ namespace
 
 		return GetProcAddress(module, lp_proc_name);
 	}
-
-	void get_proc_address_stub(utils::hook::assembler& a)
-	{
-		a.pushad64();
-		a.call_aligned(get_proc_address);
-		a.popad64();
-
-		a.mov(rcx, qword_ptr(0x140675970));
-		a.jmp(0x1400040E0);
-	}
 }
 
 BOOL APIENTRY DllMain(HMODULE module, DWORD ul_reason_for_call, LPVOID /*reserved*/)
@@ -49,16 +39,12 @@ BOOL APIENTRY DllMain(HMODULE module, DWORD ul_reason_for_call, LPVOID /*reserve
 
 	if (ul_reason_for_call == DLL_PROCESS_ATTACH)
 	{
-		OutputDebugString("startup plugin\n");
-		printf("here\n");
 		component_loader::on_startup();
 		utils::nt::library::set_current_handle(module);
 	}
 
 	if (ul_reason_for_call == DLL_PROCESS_DETACH)
 	{
-		OutputDebugString("shutdown\n");
-
 		component_loader::on_shutdown();
 	}
 
